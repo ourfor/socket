@@ -3,9 +3,12 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <netdb.h>
 
+char* deal(char*);
 
 int main(){
 	
@@ -43,10 +46,19 @@ int main(){
 
 			cli_sock = accept(serv_sock,(struct sockaddr*)&cli_addr,&cli_addr_size);
 
-			char str[] = "Nice to meet you!";
+			char *str;
+
+			char message[40];
+			// 读取客户机发来的信息
+			read(cli_sock,message,sizeof(message));
+
+			str = deal(message);
 
 			// 向客户端写入数据
 			write(cli_sock,str,sizeof(str));
+
+			printf("客户端发送过来的信息为: %s\n",message);
+
 	}
 
 	close(cli_sock);
@@ -57,3 +69,27 @@ int main(){
 	exit(0);
 }
 
+
+char* deal(char *message){
+	int choice = 0;
+	for(int i=0;i<strlen(message);i++){
+			choice *= 10;
+			choice += message[i] - '0';
+	}
+
+	printf("你的选择为: %d\n",choice);
+	switch(choice){
+		case 1: 
+			printf("Good Morning\n");
+			return "Good Morning";
+			break;
+		case 2:
+			printf("Good Night\n");
+			return "Good Night";
+			break;
+		default:
+			printf("Good Everning\n");
+			return "Good Everning";
+			break;
+	}
+}

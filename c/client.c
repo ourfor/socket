@@ -13,7 +13,6 @@ int main(){
 	serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	serv_addr.sin_port = htons(4578);
 	connect(sock,(struct sockaddr*)&serv_addr,sizeof(serv_addr));
-
 	char buff[40];
 	read(sock,buff,sizeof(buff)-1);
 
@@ -23,3 +22,4 @@ int main(){
 
 	return 0;
 }
+
