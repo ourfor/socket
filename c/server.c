@@ -26,7 +26,7 @@ int main(){
 
 	char str[] = "Hello World";
 
-	write(clnt_sock,str,sizeof(str));
+    write(clnt_sock,str,sizeof(str));
 
 	close(clnt_sock);
 	close(serv_sock);
