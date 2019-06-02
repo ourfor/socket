@@ -2,6 +2,10 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.InputStreamReader;
 import java.io.IOException;
 
 
@@ -23,11 +27,11 @@ class Server{
 
 					try{
 							Socket clientSocket = server.serverSocket.accept();
-							DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
-							DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+							BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+							BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-							out.writeUTF("Nice to meet you!");
-							String message = in.readUTF();
+                            out.writeLine("Have a good night");
+							String message = in.readLine();
 							System.out.println("客户端发来的消息为: "+message);
 					} catch(Exception e){
 							System.out.println(e.toString());
