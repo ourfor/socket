@@ -33,9 +33,10 @@ int main(int argc,char **argv){
 
 	// 读取服务端传输的信息
 	
+	//int send = atoi(argv[1]);
 	char *send = argv[1];
 	// read(sock,buffer,sizeof(buffer)-1);
-	write(sock,send,sizeof(send));
+	write(sock,&send,strlen(send)+1);
 
 	read(sock,buffer,sizeof(buffer));
 	// 打印接收的信息
