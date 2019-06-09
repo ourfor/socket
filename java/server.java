@@ -15,7 +15,7 @@ class Server{
 	public Server(int port){
 			try{
 					serverSocket = new ServerSocket(port);
-					serverSocket.setSoTimeout(10000);
+					//serverSocket.setSoTimeout(10000);
 			} catch(Exception e){
 					System.out.println(e.toString());
 			}
@@ -27,11 +27,11 @@ class Server{
 
 					try{
 							Socket clientSocket = server.serverSocket.accept();
-							BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-							BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+							DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+							DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
-                            out.writeLine("Have a good night");
-							String message = in.readLine();
+                            out.writeUTF("Have a good night");
+							String message = in.readUTF();
 							System.out.println("客户端发来的消息为: "+message);
 					} catch(Exception e){
 							System.out.println(e.toString());
